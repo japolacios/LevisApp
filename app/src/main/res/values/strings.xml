@@ -9,5 +9,9 @@
 
     <string name="register_tittle">Register</string>
     <string name="register_back">Back</string>
+    <string name="register_nombre">Nombre</string>
+    <string name="register_email">Mail</string>
+    <string name="register_password">Password</string>
+    <string name="register_create">Create Account</string>
 
 </resources>
