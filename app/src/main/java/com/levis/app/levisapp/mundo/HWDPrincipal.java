@@ -16,6 +16,24 @@ public class HWDPrincipal {
         imagenesUsuarios = new ArrayList<>();
     }
 
+    public Usuario getUsuarioActual() {
+        return usuarioActual;
+    }
+
+    public void setUsuarioActual(Usuario usuarioActual) {
+        this.usuarioActual = usuarioActual;
+    }
+
+    public ArrayList<Imagen> getImagenesUsuarios() {
+        return imagenesUsuarios;
+    }
+
+    public void setImagenesUsuarios(ArrayList<Imagen> imagenesUsuarios) {
+        this.imagenesUsuarios = imagenesUsuarios;
+    }
+
+
+
 
 
 
