@@ -32,6 +32,10 @@ public class HWDPrincipal {
         this.imagenesUsuarios = imagenesUsuarios;
     }
 
+    public void iniciarSesionUsuario(String usuAcc, String pass){
+
+    }
+
 
 
 
