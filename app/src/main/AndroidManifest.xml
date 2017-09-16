@@ -8,20 +8,20 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
-        <activity android:name=".MainActivity"
+        <activity android:name=".interfaz.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login" />
-        <activity android:name=".Register" />
-        <activity android:name=".Home" />
-        <activity android:name=".Profile" />
-        <activity android:name=".Settings" />
-        <activity android:name=".Photo" />
-        <activity android:name=".Search"></activity>
+        <activity android:name=".interfaz.Login" />
+        <activity android:name=".interfaz.Register" />
+        <activity android:name=".interfaz.Home" />
+        <activity android:name=".interfaz.Profile" />
+        <activity android:name=".interfaz.Settings" />
+        <activity android:name=".interfaz.Photo" />
+        <activity android:name=".interfaz.Search"></activity>
     </application>
 
 </manifest>
