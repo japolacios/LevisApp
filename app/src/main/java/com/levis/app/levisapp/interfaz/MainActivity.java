@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 //Aqui especifico a traves del objeto intent actual se activara la pantalla juego
 
                 Intent intent = new Intent(MainActivity.this, Search.class);
-                HWDPrincipal principal=new HWDPrincipal(name);
+                HWDPrincipal principal=new HWDPrincipal();
                 intent.putExtra("PRINCIPAL", principal);
 
                 //Se ordena que se inicie la otra actividad
