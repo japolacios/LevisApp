@@ -13,7 +13,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
-        <activity android:name=".interfaz.MainActivity"
+        <activity android:name=".interfaz.Search"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +26,9 @@
         <activity android:name=".interfaz.Profile" />
         <activity android:name=".interfaz.Settings" />
         <activity android:name=".interfaz.Photo" />
+        <!--
         <activity android:name=".interfaz.Search"></activity>
+        -->
     </application>
 
 </manifest>

@@ -1,4 +1,6 @@
 <resources>
+
+    <!-- LOGIN -->
     <string name="app_name">LevisApp</string>
     <string name="login_userName">User Name</string>
     <string name="login_password">Password</string>
@@ -7,11 +9,17 @@
     <string name="login_create_account">Dont Have Account?</string>
     <string name="login_terms">Terms and Conditions</string>
 
+
+    <!-- REGISTER -->
     <string name="register_tittle">Register</string>
     <string name="register_back">Back</string>
     <string name="register_nombre">Nombre</string>
     <string name="register_email">Mail</string>
     <string name="register_password">Password</string>
     <string name="register_create">Create Account</string>
+
+    <!-- SEARCH -->
+
+    <string name="search_tittle">This is How We Dance!</string>
 
 </resources>
