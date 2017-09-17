@@ -11,6 +11,8 @@ public class Usuario implements Serializable {
     private String nombreUsuario;
     private String apellidoUsuario;
     private String idUsuario;
+
+    private String tipoID;
     private String correoElectronico;
     private String usuarioAcceso;
     private String usuPassword;
@@ -34,6 +36,14 @@ public class Usuario implements Serializable {
         correoElectronico = corEle;
         imagenPerfil = imgPe;
         imagenesCargadas = new ArrayList<>();
+    }
+
+    public String getTipoID() {
+        return tipoID;
+    }
+
+    public void setTipoID(String tipoID) {
+        this.tipoID = tipoID;
     }
 
     public String getNombreUsuario() {

@@ -10,8 +10,6 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import co.edu.icesi.tics.mathchallenge.modelo.Jugador;
-
 /**
  * Created by Laboratorioi2t on 15/08/2017.
  */
@@ -52,78 +50,67 @@ public class LogicDataBase extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         if (db != null) {
             ContentValues valores = new ContentValues();
-            valores.put(DataBase.DatosColumnas.JUGADOR_NOMBRE, user.getNombre());
-            valores.put(DataBase.DatosColumnas.JUGADOR_APELLIDO, player.getApellido());
-            valores.put(DataBase.DatosColumnas.JUGADOR_IDENTIFICACION, player.getIdentificacion());
-            valores.put(DataBase.DatosColumnas.JUGADOR_TIPO_IDENTIFICACION, player.getTipoIdentificacion());
-            valores.put(DataBase.DatosColumnas.JUGADOR_EMAIL, player.getCorreo());
-            valores.put(DataBase.DatosColumnas.JUGADOR_CONTRASENA, player.getContrasena());
-            valores.put(DataBase.DatosColumnas.JUGADOR_PARTIDAS_JUGADAS, player.getPartidasJugadas());
-            valores.put(DataBase.DatosColumnas.JUGADOR_PARTIDAS_GANADAS, player.getPartidasGanadas());
-            valores.put(DataBase.DatosColumnas.JUGADOR_RESPUESTAS_CORRECTAS, player.getBuenas());
-            valores.put(DataBase.DatosColumnas.JUGADOR_RESPUESTAS_INCORRECTAS, player.getMalas());
-            db.insert(DataBase.TABLA_JUGADORES, null, valores);
+            valores.put(DataBase.DatosColumnas.USUARIO_NOMBRE, user.getNombreUsuario();
+            valores.put(DataBase.DatosColumnas.USUARIO_APELLIDO, user.getApellidoUsuario();
+            valores.put(DataBase.DatosColumnas.USUARIO_IDENTIFICACION, user.getIdUsuario();
+            valores.put(DataBase.DatosColumnas.USUARIO_TIPO_IDENTIFICACION, user.getTipoID();
+            valores.put(DataBase.DatosColumnas.USUARIO_EMAIL, user.getCorreoElectronico();
+            valores.put(DataBase.DatosColumnas.USUARIO_USERNAME, user.getUsuarioAcceso();
+            valores.put(DataBase.DatosColumnas.USUARIO_CONTRASENA, user.getUsuPassword();
+            db.insert(DataBase.TABLA_USUARIOS, null, valores);
             db.close();
         }
     }
 
-    public void modificarJugador(Jugador player) {
+    public void modificarJugador(Usuario user) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues valores = new ContentValues();
-        valores.put(DataBase.DatosColumnas.JUGADOR_NOMBRE, player.getNombre());
-        valores.put(DataBase.DatosColumnas.JUGADOR_APELLIDO, player.getApellido());
-        valores.put(DataBase.DatosColumnas.JUGADOR_IDENTIFICACION, player.getIdentificacion());
-        valores.put(DataBase.DatosColumnas.JUGADOR_TIPO_IDENTIFICACION, player.getTipoIdentificacion());
-        valores.put(DataBase.DatosColumnas.JUGADOR_EMAIL, player.getCorreo());
-        valores.put(DataBase.DatosColumnas.JUGADOR_CONTRASENA, player.getContrasena());
-        valores.put(DataBase.DatosColumnas.JUGADOR_PARTIDAS_JUGADAS, player.getPartidasJugadas());
-        valores.put(DataBase.DatosColumnas.JUGADOR_PARTIDAS_GANADAS, player.getPartidasGanadas());
-        valores.put(DataBase.DatosColumnas.JUGADOR_RESPUESTAS_CORRECTAS, player.getBuenas());
-        valores.put(DataBase.DatosColumnas.JUGADOR_RESPUESTAS_INCORRECTAS, player.getMalas());
-        db.update(DataBase.TABLA_JUGADORES, valores, DataBase.DatosColumnas.JUGADOR_IDENTIFICACION + "=" + player.getIdentificacion(), null);
+        valores.put(DataBase.DatosColumnas.USUARIO_NOMBRE, user.getNombreUsuario();
+        valores.put(DataBase.DatosColumnas.USUARIO_APELLIDO, user.getApellidoUsuario();
+        valores.put(DataBase.DatosColumnas.USUARIO_IDENTIFICACION, user.getIdUsuario();
+        valores.put(DataBase.DatosColumnas.USUARIO_TIPO_IDENTIFICACION, user.getTipoID();
+        valores.put(DataBase.DatosColumnas.USUARIO_EMAIL, user.getCorreoElectronico();
+        valores.put(DataBase.DatosColumnas.USUARIO_USERNAME, user.getUsuarioAcceso();
+        valores.put(DataBase.DatosColumnas.USUARIO_CONTRASENA, user.getUsuPassword();
+        db.update(DataBase.TABLA_USUARIOS, valores, DataBase.DatosColumnas.USUARIO_USERNAME + "=" + user.getUsuarioAcceso(), null);
         db.close();
     }
 
-    public void borrarJugador(Jugador player) {
+    public void borrarJugador(Usuario user) {
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(DataBase.TABLA_JUGADORES, DataBase.DatosColumnas.JUGADOR_IDENTIFICACION + "=" + player.getIdentificacion(), null);
+        db.delete(DataBase.TABLA_USUARIOS, DataBase.DatosColumnas.USUARIO_USERNAME + "=" + user.getUsuarioAcceso(), null);
         db.close();
     }
 
-    public Jugador buscarJugador(String identificacion) {
+    public Usuario buscarJugador(String identificacion) {
         SQLiteDatabase db = getReadableDatabase();
         String[] valores_recuperar = {
-                DataBase.DatosColumnas.JUGADOR_NOMBRE,
-                DataBase.DatosColumnas.JUGADOR_APELLIDO,
-                DataBase.DatosColumnas.JUGADOR_IDENTIFICACION,
-                DataBase.DatosColumnas.JUGADOR_TIPO_IDENTIFICACION,
-                DataBase.DatosColumnas.JUGADOR_EMAIL,
-                DataBase.DatosColumnas.JUGADOR_CONTRASENA,
-                DataBase.DatosColumnas.JUGADOR_PARTIDAS_JUGADAS,
-                DataBase.DatosColumnas.JUGADOR_PARTIDAS_GANADAS,
-                DataBase.DatosColumnas.JUGADOR_RESPUESTAS_CORRECTAS,
-                DataBase.DatosColumnas.JUGADOR_RESPUESTAS_INCORRECTAS
+                DataBase.DatosColumnas.USUARIO_NOMBRE,
+                DataBase.DatosColumnas.USUARIO_APELLIDO,
+                DataBase.DatosColumnas.USUARIO_IDENTIFICACION,
+                DataBase.DatosColumnas.USUARIO_TIPO_IDENTIFICACION,
+                DataBase.DatosColumnas.USUARIO_EMAIL,
+                DataBase.DatosColumnas.USUARIO_USERNAME,
+                DataBase.DatosColumnas.USUARIO_CONTRASENA
         };
 
-        Cursor c = db.query(DataBase.TABLA_JUGADORES, valores_recuperar,
-                DataBase.DatosColumnas.JUGADOR_IDENTIFICACION + "='" + identificacion+"'",
+        Cursor c = db.query(DataBase.TABLA_USUARIOS, valores_recuperar,
+                DataBase.DatosColumnas.USUARIO_USERNAME + "='" + identificacion+"'",
                 null, null, null, null, null);
 
         if (c != null) {
             if (c.moveToFirst()) {
-                Jugador jugador = new Jugador(c.getString(c.getColumnIndex(DataBase.DatosColumnas.JUGADOR_NOMBRE)));
-                jugador.setApellido(c.getString(c.getColumnIndex(DataBase.DatosColumnas.JUGADOR_APELLIDO)));
-                jugador.setIdentificacion(c.getString(c.getColumnIndex(DataBase.DatosColumnas.JUGADOR_IDENTIFICACION)));
-                jugador.setTipoIdentificacion(c.getString(c.getColumnIndex(DataBase.DatosColumnas.JUGADOR_TIPO_IDENTIFICACION)));
-                jugador.setCorreo(c.getString(c.getColumnIndex(DataBase.DatosColumnas.JUGADOR_EMAIL)));
-                jugador.setContrasena(c.getString(c.getColumnIndex(DataBase.DatosColumnas.JUGADOR_CONTRASENA)));
-                jugador.setPartidasGanadas(c.getInt(c.getColumnIndex(DataBase.DatosColumnas.JUGADOR_PARTIDAS_GANADAS)));
-                jugador.setPartidasJugadas(c.getInt(c.getColumnIndex(DataBase.DatosColumnas.JUGADOR_PARTIDAS_JUGADAS)));
-                jugador.setBuenas(c.getInt(c.getColumnIndex(DataBase.DatosColumnas.JUGADOR_RESPUESTAS_CORRECTAS)));
-                jugador.setMalas(c.getInt(c.getColumnIndex(DataBase.DatosColumnas.JUGADOR_RESPUESTAS_INCORRECTAS)));
+                Usuario user = new Usuario();
+                user.setNombreUsuario(c.getString(c.getColumnIndex(DataBase.DatosColumnas.USUARIO_NOMBRE)));
+                user.setApellidoUsuario(c.getString(c.getColumnIndex(DataBase.DatosColumnas.USUARIO_APELLIDO)));
+                user.setIdUsuario(c.getString(c.getColumnIndex(DataBase.DatosColumnas.USUARIO_IDENTIFICACION)));
+                user.setTipoID(c.getString(c.getColumnIndex(DataBase.DatosColumnas.USUARIO_TIPO_IDENTIFICACION)));
+                user.setCorreoElectronico(c.getString(c.getColumnIndex(DataBase.DatosColumnas.USUARIO_EMAIL)));
+                user.setUsuarioAcceso(c.getString(c.getColumnIndex(DataBase.DatosColumnas.USUARIO_USERNAME)));
+                user.setUsuPassword(c.getString(c.getColumnIndex(DataBase.DatosColumnas.USUARIO_CONTRASENA)));
                 db.close();
                 c.close();
-                return jugador;
+                return user;
             }
         }
         db.close();
@@ -136,41 +123,36 @@ public class LogicDataBase extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<Jugador> listaJugadores() {
+    public List<Usuario> listaJugadores() {
         SQLiteDatabase db = getReadableDatabase();
-        List<Jugador> jugadores = new ArrayList<>();
+        List<Usuario> usuarios = new ArrayList<>();
         String[] valores_recuperar = {
-                DataBase.DatosColumnas.JUGADOR_NOMBRE,
-                DataBase.DatosColumnas.JUGADOR_APELLIDO,
-                DataBase.DatosColumnas.JUGADOR_IDENTIFICACION,
-                DataBase.DatosColumnas.JUGADOR_TIPO_IDENTIFICACION,
-                DataBase.DatosColumnas.JUGADOR_EMAIL,
-                DataBase.DatosColumnas.JUGADOR_CONTRASENA,
-                DataBase.DatosColumnas.JUGADOR_PARTIDAS_JUGADAS,
-                DataBase.DatosColumnas.JUGADOR_PARTIDAS_GANADAS,
-                DataBase.DatosColumnas.JUGADOR_RESPUESTAS_CORRECTAS,
-                DataBase.DatosColumnas.JUGADOR_RESPUESTAS_INCORRECTAS
+                DataBase.DatosColumnas.USUARIO_NOMBRE,
+                DataBase.DatosColumnas.USUARIO_APELLIDO,
+                DataBase.DatosColumnas.USUARIO_IDENTIFICACION,
+                DataBase.DatosColumnas.USUARIO_TIPO_IDENTIFICACION,
+                DataBase.DatosColumnas.USUARIO_EMAIL,
+                DataBase.DatosColumnas.USUARIO_USERNAME,
+                DataBase.DatosColumnas.USUARIO_CONTRASENA
         };
-        Cursor c = db.query(DataBase.TABLA_JUGADORES, valores_recuperar, null, null, null, null, null, null);
+        Cursor c = db.query(DataBase.TABLA_USUARIOS, valores_recuperar, null, null, null, null, null, null);
         c.moveToFirst();
         do {
             if(c.getCount()>0){
-                Jugador jugador = new Jugador(c.getString(0));
-                jugador.setApellido(c.getString(1));
-                jugador.setIdentificacion(c.getString(2));
-                jugador.setTipoIdentificacion(c.getString(3));
-                jugador.setCorreo(c.getString(4));
-                jugador.setContrasena(c.getString(5));
-                jugador.setPartidasGanadas(c.getInt(6));//Integer.valueOf(
-                jugador.setPartidasJugadas(c.getInt(7));
-                jugador.setBuenas(c.getInt(8));
-                jugador.setMalas(c.getInt(9));
-                jugadores.add(jugador);
+                Usuario user = new Usuario();
+                user.setNombreUsuario(c.getString(1));
+                user.setApellidoUsuario(c.getString(2));
+                user.setIdUsuario(c.getString(3));
+                user.setTipoID(c.getString(4));
+                user.setCorreoElectronico(c.getString(5));
+                user.setUsuarioAcceso(c.getString(6));
+                user.setUsuPassword(c.getString(7));
+                usuarios.add(user);
             }else return null;
         } while (c.moveToNext());
         c.close();
         db.close();
-        return jugadores;
+        return usuarios;
     }
 
 

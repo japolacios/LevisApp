@@ -12,12 +12,9 @@ public class HWDPrincipal implements Serializable {
     private Usuario usuarioActual;
     private ArrayList<Imagen> imagenesUsuarios;
 
-    public HWDPrincipal(){
-        usuarioActual = new Usuario();
-        imagenesUsuarios = new ArrayList<>();
-    }
-
-    public HWDPrincipal(String name) {
+   public HWDPrincipal(){
+       usuarioActual = new Usuario();
+       imagenesUsuarios = new ArrayList<>();
     }
 
     public Usuario getUsuarioActual() {
