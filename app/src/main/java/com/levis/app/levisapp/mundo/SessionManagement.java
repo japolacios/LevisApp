@@ -1,8 +1,10 @@
-package com.levis.app.levisapp.interfaz;
+package com.levis.app.levisapp.mundo;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+
+import com.levis.app.levisapp.interfaz.MainActivity;
 
 import java.util.HashMap;
 
