@@ -12,7 +12,7 @@ public class Imagen {
     private String ubicacion;
     private String fechaCarga;
     private String titulo;
-    private Image imagenCargada;
+    private String imagenCargada;
 
     public Imagen(){
         nombreUsuario = "";
@@ -22,7 +22,7 @@ public class Imagen {
         imagenCargada = null;
     }
 
-    public Imagen(String nomUs, String ub, String fC, String tit, Image img){
+    public Imagen(String nomUs, String ub, String fC, String tit, String img){
         nombreUsuario = nomUs;
         ubicacion = ub;
         fechaCarga = fC;
@@ -66,11 +66,11 @@ public class Imagen {
     }
 
 
-    public Image getImagenCargada() {
+    public String getImagenCargada() {
         return imagenCargada;
     }
 
-    public void setImagenCargada(Image imagenCargada) {
+    public void setImagenCargada(String imagenCargada) {
         this.imagenCargada = imagenCargada;
     }
 
