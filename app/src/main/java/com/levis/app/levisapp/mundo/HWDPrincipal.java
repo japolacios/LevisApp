@@ -36,9 +36,20 @@ public class HWDPrincipal {
 
     }
 
+    public void cerrarSesionUsuario(){
 
+    }
 
+    public void cargarFeedsUsuario(){
 
+    }
 
+    public void cargarImagenUsuario(){
+
+    }
+
+    public void cargarImagenPerfilUsuario(){
+
+    }
 
 }
