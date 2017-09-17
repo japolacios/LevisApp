@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 session.createLoginSession(name, password);
                 //Aqui especifico a traves del objeto intent actual se activara la pantalla juego
 
-                Intent intent = new Intent(MainActivity.this, Search.class);
+                Intent intent = new Intent(MainActivity.this, Register.class);
                 HWDPrincipal principal=new HWDPrincipal();
                 intent.putExtra("PRINCIPAL", principal);
 
