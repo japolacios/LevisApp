@@ -32,9 +32,24 @@ public class HWDPrincipal {
         this.imagenesUsuarios = imagenesUsuarios;
     }
 
+    public void iniciarSesionUsuario(String usuAcc, String pass){
 
+    }
 
+    public void cerrarSesionUsuario(){
 
+    }
 
+    public void cargarFeedsUsuario(){
+
+    }
+
+    public void cargarImagenUsuario(){
+
+    }
+
+    public void cargarImagenPerfilUsuario(){
+
+    }
 
 }

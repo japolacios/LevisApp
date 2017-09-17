@@ -9,6 +9,7 @@ import android.media.Image;
 public class Imagen {
 
     private String nombreUsuario;
+    private String usuAcc;
     private String ubicacion;
     private String fechaCarga;
     private String titulo;
