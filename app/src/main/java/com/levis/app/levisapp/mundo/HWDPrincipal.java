@@ -1,12 +1,13 @@
 package com.levis.app.levisapp.mundo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by juancamilovilladagamboa on 16/09/17.
  */
 
-public class HWDPrincipal {
+public class HWDPrincipal implements Serializable {
 
     private Usuario usuarioActual;
     private ArrayList<Imagen> imagenesUsuarios;
@@ -14,6 +15,9 @@ public class HWDPrincipal {
     public HWDPrincipal(){
         usuarioActual = new Usuario();
         imagenesUsuarios = new ArrayList<>();
+    }
+
+    public HWDPrincipal(String name) {
     }
 
     public Usuario getUsuarioActual() {

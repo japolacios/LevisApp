@@ -1,12 +1,13 @@
 package com.levis.app.levisapp.mundo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by juancamilovilladagamboa on 16/09/17.
  */
 
-public class Usuario {
+public class Usuario implements Serializable {
     private String nombreUsuario;
     private String usuarioAcceso;
     private String usuPassword;

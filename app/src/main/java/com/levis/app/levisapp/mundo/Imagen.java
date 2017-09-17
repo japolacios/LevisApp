@@ -2,11 +2,13 @@ package com.levis.app.levisapp.mundo;
 
 import android.media.Image;
 
+import java.io.Serializable;
+
 /**
  * Created by juancamilovilladagamboa on 16/09/17.
  */
 
-public class Imagen {
+public class Imagen implements Serializable {
 
     private String nombreUsuario;
     private String usuAcc;
