@@ -9,12 +9,13 @@ import java.util.ArrayList;
 
 public class Usuario implements Serializable {
     private String nombreUsuario;
+    private String apellidoUsuario;
+    private String idUsuario;
+    private String correoElectronico;
     private String usuarioAcceso;
     private String usuPassword;
-    private String correoElectronico;
     private Imagen imagenPerfil;
     private ArrayList<Imagen> imagenesCargadas;
-
 
     public Usuario(){
         nombreUsuario = "";
@@ -65,6 +66,22 @@ public class Usuario implements Serializable {
 
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
+    }
+
+    public String getApellidoUsuario() {
+        return apellidoUsuario;
+    }
+
+    public void setApellidoUsuario(String apellidoUsuario) {
+        this.apellidoUsuario = apellidoUsuario;
+    }
+
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public Imagen getImagenPerfil() {

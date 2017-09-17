@@ -19,7 +19,7 @@ import co.edu.icesi.tics.mathchallenge.modelo.Jugador;
 public class LogicDataBase extends SQLiteOpenHelper {
 
     private static final int VERSION_BASEDATOS = 1;
-    private static final String NOMBRE_BASEDATOS = "MathChallenge.db";
+    private static final String NOMBRE_BASEDATOS = "LevisApp.db";
 
 
     public LogicDataBase(Context context) {
@@ -48,11 +48,11 @@ public class LogicDataBase extends SQLiteOpenHelper {
                 "Upgrading database from version " + oldVersion + " to " + newVersion);
     }
 
-    public void insertarJugador(Jugador player) {
+    public void insertarUsuario(Usuario user) {
         SQLiteDatabase db = getWritableDatabase();
         if (db != null) {
             ContentValues valores = new ContentValues();
-            valores.put(DataBase.DatosColumnas.JUGADOR_NOMBRE, player.getNombre());
+            valores.put(DataBase.DatosColumnas.JUGADOR_NOMBRE, user.getNombre());
             valores.put(DataBase.DatosColumnas.JUGADOR_APELLIDO, player.getApellido());
             valores.put(DataBase.DatosColumnas.JUGADOR_IDENTIFICACION, player.getIdentificacion());
             valores.put(DataBase.DatosColumnas.JUGADOR_TIPO_IDENTIFICACION, player.getTipoIdentificacion());

@@ -10,13 +10,13 @@ public class DataBase {
     /**
      * Contains the name of the table to create that contains the row counters.
      */
-    public static final String TABLA_JUGADORES = "jugadores";
+    public static final String TABLA_USUARIOS = "usuarios";
 
     /**
      * Contains the SQL query to use to create the table containing the row counters.
      */
     public static final String SQL_CREATE_TABLE = "CREATE TABLE "
-            + DataBase.TABLA_JUGADORES + " ("
+            + DataBase.TABLA_USUARIOS + " ("
             + DatosColumnas.JUGADOR_NOMBRE + " TEXT,"
             + DatosColumnas.JUGADOR_APELLIDO + " TEXT,"
             + DatosColumnas.JUGADOR_IDENTIFICACION + " TEXT PRIMARY KEY,"
