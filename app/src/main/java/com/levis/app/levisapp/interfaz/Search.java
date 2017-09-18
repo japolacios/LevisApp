@@ -17,6 +17,7 @@ import android.widget.ListView;
 
 import com.levis.app.levisapp.R;
 import com.levis.app.levisapp.mundo.Imagen;
+import com.levis.app.levisapp.mundo.SessionManagement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,23 +33,22 @@ public class Search extends AppCompatActivity {
     SearchListViewAdapter adapter;
     ArrayList<Imagen> imageList;
 
+    private SessionManagement session;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        session = new SessionManagement(getApplicationContext());
+
+        session.checkLogin();
+
         imageList = new ArrayList<Imagen>();
-
-
-
-
 
         //Add items in the meantime
         Imagen temp1 = new Imagen("John Doe","Valle","01/01/99","Mi Titulo","@DrawableRes/explire_dummie.png");
         Imagen temp2 = new Imagen("Benito Camelas","Hell","01/01/99","Mi Titulo2","@DrawableRes/explire_dummie.png");
-
-
-
-
 
         imageList.add(temp1);
         imageList.add(temp2);

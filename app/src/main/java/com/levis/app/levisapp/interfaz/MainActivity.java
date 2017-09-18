@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         session = new SessionManagement(getApplicationContext());
         Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_SHORT).show();
 
-
         iniciarSesion = (Button) findViewById(R.id.loginButton);
         nombre = (EditText) findViewById(R.id.userName);
         contraseña = (EditText) findViewById(R.id.loginPassword);

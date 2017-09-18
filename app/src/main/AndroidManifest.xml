@@ -15,14 +15,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
-        <activity android:name=".interfaz.MainActivity"
+        <activity android:name=".interfaz.Search"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".interfaz.Search"
+
+        <activity android:name=".interfaz.MainActivity"
             android:theme="@style/AppTheme"/>
         <activity android:name=".interfaz.Login"
             android:theme="@style/AppTheme"/>

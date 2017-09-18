@@ -3,6 +3,7 @@ package com.levis.app.levisapp.mundo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 
 import com.levis.app.levisapp.interfaz.MainActivity;
 
@@ -13,7 +14,7 @@ public class SessionManagement {
     SharedPreferences pref;
 
     // Editor for Shared preferences
-    SharedPreferences.Editor editor;
+    Editor editor;
 
     // Context
     Context _context;
