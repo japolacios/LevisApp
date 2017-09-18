@@ -58,7 +58,7 @@ public class SearchListViewAdapter extends ArrayAdapter<Imagen> {
         TextView locationLoad = (TextView) view.findViewById(R.id.location_load);
 
 
-        //Get Image path
+        //Receive Image path
         File imgFile = new  File(imageList.get(position).getImagenCargada());
 
         //Check that the file exists
@@ -68,7 +68,8 @@ public class SearchListViewAdapter extends ArrayAdapter<Imagen> {
             Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 
             //Assing the bitmap to the imageView
-
+            //imgLoad.setImageResource(myBitmap);
+            imgLoad.setImageBitmap(myBitmap);
         }
 
         //Set the rest of the texts
