@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.levis.app.levisapp.R;
 import com.levis.app.levisapp.mundo.HWDPrincipal;
+import com.levis.app.levisapp.mundo.LogicDataBase;
 import com.levis.app.levisapp.mundo.SessionManagement;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,12 +18,14 @@ public class MainActivity extends AppCompatActivity {
     private SessionManagement session;
     private Button iniciarSesion;
     private EditText nombre, contraseña;
+    private LogicDataBase db;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        db = new LogicDataBase(this);
 
         // Session Manager
         session = new SessionManagement(getApplicationContext());
@@ -43,15 +46,25 @@ public class MainActivity extends AppCompatActivity {
 
                     session.createLoginSession(name, password);
 
-                    //Validar de alguna forma para ahi si hacer el cambio de actividad, de lo contrario mostrar un toast con el error
+                    String storedPassword=db.getSingleEntry(name);
 
-                    Intent intent = new Intent(MainActivity.this, Search.class);
-                    HWDPrincipal principal=new HWDPrincipal();
-                    intent.putExtra("PRINCIPAL", principal);
 
-                    //Se ordena que se inicie la otra actividad
-                    startActivity(intent);
-                    finish();
+                    if(password.equals(storedPassword))
+                    {
+                        Toast.makeText(getApplicationContext(), "Bienvenido de nuevo!", Toast.LENGTH_LONG).show();
+
+                        Intent intent = new Intent(MainActivity.this, Search.class);
+                        HWDPrincipal principal=new HWDPrincipal();
+                        intent.putExtra("PRINCIPAL", principal);
+
+                        startActivity(intent);
+                        finish();
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(), "User Name or Password does not match", Toast.LENGTH_LONG).show();
+                    }
+
                 } else{
                     Toast.makeText(getApplicationContext(), "Please type in User and Password", Toast.LENGTH_SHORT).show();
                 }

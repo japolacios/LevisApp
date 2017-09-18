@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -26,7 +27,8 @@ public class LogicDataBase extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db) {
         // Create the database to contain the data for the projects
-        db.execSQL(DataBase.SQL_CREATE_TABLE);
+        db.execSQL(DataBase.SQL_CREATE_TABLE_USUARIOS);
+        db.execSQL(DataBase.SQL_CREATE_TABLE_IMAGENES);
 
     }
 
@@ -51,9 +53,7 @@ public class LogicDataBase extends SQLiteOpenHelper {
         if (db != null) {
             ContentValues valores = new ContentValues();
             valores.put(DataBase.DatosColumnas.USUARIO_NOMBRE, user.getNombreUsuario());
-            valores.put(DataBase.DatosColumnas.USUARIO_IDENTIFICACION, user.getIdUsuario());
             valores.put(DataBase.DatosColumnas.USUARIO_EMAIL, user.getCorreoElectronico());
-           // valores.put(DataBase.DatosColumnas.USUARIO_PIC, user.getImagenPerfil());
             valores.put(DataBase.DatosColumnas.USUARIO_CONTRASENA, user.getUsuPassword());
             db.insert(DataBase.TABLA_USUARIOS, null, valores);
             db.close();
@@ -64,19 +64,15 @@ public class LogicDataBase extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues valores = new ContentValues();
         valores.put(DataBase.DatosColumnas.USUARIO_NOMBRE, user.getNombreUsuario());
-        valores.put(DataBase.DatosColumnas.USUARIO_APELLIDO, user.getApellidoUsuario());
-        valores.put(DataBase.DatosColumnas.USUARIO_IDENTIFICACION, user.getIdUsuario());
-        valores.put(DataBase.DatosColumnas.USUARIO_TIPO_IDENTIFICACION, user.getTipoID());
         valores.put(DataBase.DatosColumnas.USUARIO_EMAIL, user.getCorreoElectronico());
-        valores.put(DataBase.DatosColumnas.USUARIO_USERNAME, user.getUsuarioAcceso());
         valores.put(DataBase.DatosColumnas.USUARIO_CONTRASENA, user.getUsuPassword());
-        db.update(DataBase.TABLA_USUARIOS, valores, DataBase.DatosColumnas.USUARIO_USERNAME + "=" + user.getUsuarioAcceso(), null);
+        db.update(DataBase.TABLA_USUARIOS, valores, DataBase.DatosColumnas.USUARIO_EMAIL + "=" + user.getCorreoElectronico(), null);
         db.close();
     }
 
     public void borrarUsuario(Usuario user) {
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(DataBase.TABLA_USUARIOS, DataBase.DatosColumnas.USUARIO_USERNAME + "=" + user.getUsuarioAcceso(), null);
+        db.delete(DataBase.TABLA_USUARIOS, DataBase.DatosColumnas.USUARIO_EMAIL + "=" + user.getCorreoElectronico(), null);
         db.close();
     }
 
@@ -84,27 +80,19 @@ public class LogicDataBase extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         String[] valores_recuperar = {
                 DataBase.DatosColumnas.USUARIO_NOMBRE,
-                DataBase.DatosColumnas.USUARIO_APELLIDO,
-                DataBase.DatosColumnas.USUARIO_IDENTIFICACION,
-                DataBase.DatosColumnas.USUARIO_TIPO_IDENTIFICACION,
                 DataBase.DatosColumnas.USUARIO_EMAIL,
-                DataBase.DatosColumnas.USUARIO_USERNAME,
                 DataBase.DatosColumnas.USUARIO_CONTRASENA
         };
 
         Cursor c = db.query(DataBase.TABLA_USUARIOS, valores_recuperar,
-                DataBase.DatosColumnas.USUARIO_USERNAME + "='" + identificacion+"'",
+                DataBase.DatosColumnas.USUARIO_EMAIL + "='" + identificacion+"'",
                 null, null, null, null, null);
 
         if (c != null) {
             if (c.moveToFirst()) {
                 Usuario user = new Usuario();
                 user.setNombreUsuario(c.getString(c.getColumnIndex(DataBase.DatosColumnas.USUARIO_NOMBRE)));
-                user.setApellidoUsuario(c.getString(c.getColumnIndex(DataBase.DatosColumnas.USUARIO_APELLIDO)));
-                user.setIdUsuario(c.getString(c.getColumnIndex(DataBase.DatosColumnas.USUARIO_IDENTIFICACION)));
-                user.setTipoID(c.getString(c.getColumnIndex(DataBase.DatosColumnas.USUARIO_TIPO_IDENTIFICACION)));
                 user.setCorreoElectronico(c.getString(c.getColumnIndex(DataBase.DatosColumnas.USUARIO_EMAIL)));
-                user.setUsuarioAcceso(c.getString(c.getColumnIndex(DataBase.DatosColumnas.USUARIO_USERNAME)));
                 user.setUsuPassword(c.getString(c.getColumnIndex(DataBase.DatosColumnas.USUARIO_CONTRASENA)));
                 db.close();
                 c.close();
@@ -126,11 +114,7 @@ public class LogicDataBase extends SQLiteOpenHelper {
         List<Usuario> usuarios = new ArrayList<>();
         String[] valores_recuperar = {
                 DataBase.DatosColumnas.USUARIO_NOMBRE,
-                DataBase.DatosColumnas.USUARIO_APELLIDO,
-                DataBase.DatosColumnas.USUARIO_IDENTIFICACION,
-                DataBase.DatosColumnas.USUARIO_TIPO_IDENTIFICACION,
                 DataBase.DatosColumnas.USUARIO_EMAIL,
-                DataBase.DatosColumnas.USUARIO_USERNAME,
                 DataBase.DatosColumnas.USUARIO_CONTRASENA
         };
         Cursor c = db.query(DataBase.TABLA_USUARIOS, valores_recuperar, null, null, null, null, null, null);
@@ -139,11 +123,7 @@ public class LogicDataBase extends SQLiteOpenHelper {
             if(c.getCount()>0){
                 Usuario user = new Usuario();
                 user.setNombreUsuario(c.getString(1));
-                user.setApellidoUsuario(c.getString(2));
-                user.setIdUsuario(c.getString(3));
-                user.setTipoID(c.getString(4));
                 user.setCorreoElectronico(c.getString(5));
-                user.setUsuarioAcceso(c.getString(6));
                 user.setUsuPassword(c.getString(7));
                 usuarios.add(user);
             }else return null;
@@ -151,6 +131,154 @@ public class LogicDataBase extends SQLiteOpenHelper {
         c.close();
         db.close();
         return usuarios;
+    }
+
+    public String getSingleEntry(String userName)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.query(DataBase.TABLA_USUARIOS, null, " "+DataBase.DatosColumnas.USUARIO_EMAIL+"=?", new String[]{userName}, null, null, null);
+        if(cursor.getCount()<1) // UserName Not Exist
+        {
+            cursor.close();
+            return "NOT EXIST";
+        }
+        cursor.moveToFirst();
+        String password= cursor.getString(cursor.getColumnIndex("PASSWORD"));
+        cursor.close();
+        return password;
+    }
+
+    public void insertarImagen(Imagen img) {
+        SQLiteDatabase db = getWritableDatabase();
+        if (db != null) {
+            ContentValues valores = new ContentValues();
+            valores.put(DataBase.DatosColumnas.IMAGEN_NOMBRE, img.getNombreUsuario());
+            valores.put(DataBase.DatosColumnas.IMAGEN_EMAIL, img.getCorreoUsuario());
+            valores.put(DataBase.DatosColumnas.IMAGEN_UBICACION, img.getUbicacion());
+            valores.put(DataBase.DatosColumnas.IMAGEN_FECHA, img.getFechaCarga());
+            valores.put(DataBase.DatosColumnas.IMAGEN_TITULO, img.getTitulo());
+            valores.put(DataBase.DatosColumnas.IMAGEN_IMAGEN_MEMORIA, img.getImagenCargada());
+            valores.put(DataBase.DatosColumnas.IMAGEN_IMAGEN_TABLA, img.getImagenTabla());
+            db.insert(DataBase.TABLA_IMAGENES, null, valores);
+            db.close();
+        }
+    }
+
+    public void cambiarTitulo(Imagen img) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues valores = new ContentValues();
+        valores.put(DataBase.DatosColumnas.IMAGEN_NOMBRE, img.getNombreUsuario());
+        valores.put(DataBase.DatosColumnas.IMAGEN_EMAIL, img.getCorreoUsuario());
+        valores.put(DataBase.DatosColumnas.IMAGEN_UBICACION, img.getUbicacion());
+        valores.put(DataBase.DatosColumnas.IMAGEN_FECHA, img.getFechaCarga());
+        valores.put(DataBase.DatosColumnas.IMAGEN_TITULO, img.getTitulo());
+        valores.put(DataBase.DatosColumnas.IMAGEN_IMAGEN_MEMORIA, img.getImagenCargada());
+        valores.put(DataBase.DatosColumnas.IMAGEN_IMAGEN_TABLA, img.getImagenTabla());
+        db.update(DataBase.TABLA_IMAGENES, valores, DataBase.DatosColumnas.IMAGEN_NOMBRE + "=" + img.getNombreUsuario(), null);
+        db.close();
+    }
+
+    public void borrarImagen(Imagen img) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(DataBase.TABLA_IMAGENES, DataBase.DatosColumnas.IMAGEN_NOMBRE + "=" + img.getNombreUsuario(), null);
+        db.close();
+    }
+
+    public List<Imagen> todasLasImagenes() {
+        SQLiteDatabase db = getReadableDatabase();
+        List<Imagen> imagenes = new ArrayList<>();
+        String[] valores_recuperar = {
+                DataBase.DatosColumnas.IMAGEN_NOMBRE,
+                DataBase.DatosColumnas.IMAGEN_EMAIL,
+                DataBase.DatosColumnas.IMAGEN_UBICACION,
+                DataBase.DatosColumnas.IMAGEN_FECHA,
+                DataBase.DatosColumnas.IMAGEN_TITULO,
+                DataBase.DatosColumnas.IMAGEN_IMAGEN_MEMORIA,
+                DataBase.DatosColumnas.IMAGEN_IMAGEN_TABLA
+        };
+        Cursor c = db.query(DataBase.TABLA_IMAGENES, valores_recuperar, null, null, null, null, null, null);
+        c.moveToFirst();
+        do {
+            if (c.getCount() > 0) {
+                Imagen img = new Imagen();
+
+                img.setNombreUsuario(c.getString(1));
+                img.setCorreoUsuario(c.getString(2));
+                img.setUbicacion(c.getString(3));
+                img.setFechaCarga(c.getString(4));
+                img.setTitulo(c.getString(5));
+                img.setImagenCargada(c.getString(6));
+                img.setImagenTabla(c.getBlob(7));
+                imagenes.add(img);
+            } else return null;
+        } while (c.moveToNext());
+        c.close();
+        db.close();
+        return imagenes;
+    }
+
+    public List<Imagen> darImagenesUsuario() {
+        SQLiteDatabase db = getReadableDatabase();
+        List<Imagen> imagenes = new ArrayList<>();
+        String[] valores_recuperar = {
+                DataBase.DatosColumnas.IMAGEN_NOMBRE,
+                DataBase.DatosColumnas.IMAGEN_EMAIL,
+                DataBase.DatosColumnas.IMAGEN_UBICACION,
+                DataBase.DatosColumnas.IMAGEN_FECHA,
+                DataBase.DatosColumnas.IMAGEN_TITULO,
+                DataBase.DatosColumnas.IMAGEN_IMAGEN_MEMORIA,
+                DataBase.DatosColumnas.IMAGEN_IMAGEN_TABLA
+        };
+
+        Cursor c = db.query(DataBase.TABLA_IMAGENES, null, " "+DataBase.DatosColumnas.USUARIO_EMAIL+"=?", valores_recuperar, null, null, null, null);
+        c.moveToFirst();
+        do {
+            if(c.getCount()>0){
+                Imagen img = new Imagen();
+                img.setNombreUsuario(c.getString(1));
+                img.setCorreoUsuario(c.getString(2));
+                img.setUbicacion(c.getString(3));
+                img.setFechaCarga(c.getString(4));
+                img.setTitulo(c.getString(5));
+                img.setImagenCargada(c.getString(6));
+                img.setImagenTabla(c.getBlob(7));
+                imagenes.add(img);
+            }else return null;
+        } while (c.moveToNext());
+        c.close();
+        db.close();
+        return imagenes;
+    }
+
+    public Imagen getImagenPerfil(String userName)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        String[] valores_recuperar = {
+                DataBase.DatosColumnas.IMAGEN_NOMBRE,
+                DataBase.DatosColumnas.IMAGEN_EMAIL,
+                DataBase.DatosColumnas.IMAGEN_UBICACION,
+                DataBase.DatosColumnas.IMAGEN_FECHA,
+                DataBase.DatosColumnas.IMAGEN_TITULO,
+                DataBase.DatosColumnas.IMAGEN_IMAGEN_MEMORIA,
+                DataBase.DatosColumnas.IMAGEN_IMAGEN_TABLA
+        };
+        Cursor c = db.query(DataBase.TABLA_USUARIOS, null, " "+DataBase.DatosColumnas.USUARIO_EMAIL+"=? AND "+DataBase.DatosColumnas.USUARIO_NOMBRE+"='imagenPerfil'", valores_recuperar, null, null, null);
+        if(c.getCount()<1) // UserName Not Exist
+        {
+            c.close();
+            return null;
+        }
+        c.moveToFirst();
+        Imagen img = new Imagen();
+        img.setNombreUsuario(c.getString(1));
+        img.setCorreoUsuario(c.getString(2));
+        img.setUbicacion(c.getString(3));
+        img.setFechaCarga(c.getString(4));
+        img.setTitulo(c.getString(5));
+        img.setImagenCargada(c.getString(6));
+        img.setImagenTabla(c.getBlob(7));
+        c.close();
+        return img;
     }
 
 

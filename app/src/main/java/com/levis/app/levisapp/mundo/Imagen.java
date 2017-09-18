@@ -1,6 +1,9 @@
 package com.levis.app.levisapp.mundo;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
+import android.widget.ImageView;
 
 import java.io.Serializable;
 
@@ -11,11 +14,12 @@ import java.io.Serializable;
 public class Imagen implements Serializable {
 
     private String nombreUsuario;
-    private String usuAcc;
+    private String correoUsuario;
     private String ubicacion;
     private String fechaCarga;
     private String titulo;
     private String imagenCargada;
+    private byte[] imagenTabla;
 
     public Imagen(){
         nombreUsuario = "";
@@ -23,6 +27,7 @@ public class Imagen implements Serializable {
         fechaCarga = "";
         titulo = "";
         imagenCargada = null;
+        imagenTabla = null;
     }
 
     public Imagen(String nomUs, String ub, String fC, String tit, String img){
@@ -33,6 +38,29 @@ public class Imagen implements Serializable {
         imagenCargada  = img;
     }
 
+    public Imagen(String nomUs, String ub, String fC, String tit, byte[] img){
+        nombreUsuario = nomUs;
+        ubicacion = ub;
+        fechaCarga = fC;
+        titulo = tit;
+        imagenTabla  = img;
+    }
+
+    public String getCorreoUsuario() {
+        return correoUsuario;
+    }
+
+    public void setCorreoUsuario(String correoUsuario) {
+        this.correoUsuario = correoUsuario;
+    }
+
+    public byte[] getImagenTabla() {
+        return imagenTabla;
+    }
+
+    public void setImagenTabla(byte[] imagenTabla) {
+        this.imagenTabla = imagenTabla;
+    }
 
     public String getNombreUsuario() {
         return nombreUsuario;

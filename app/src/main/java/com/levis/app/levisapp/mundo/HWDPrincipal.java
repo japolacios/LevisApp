@@ -1,5 +1,7 @@
 package com.levis.app.levisapp.mundo;
 
+import android.database.Cursor;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
