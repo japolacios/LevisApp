@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Session Manager
         session = new SessionManagement(getApplicationContext());
-        Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_SHORT).show();
 
         iniciarSesion = (Button) findViewById(R.id.loginButton);
         nombre = (EditText) findViewById(R.id.userName);
@@ -61,11 +60,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else
                     {
-                        Toast.makeText(getApplicationContext(), "User Name or Password does not match", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "El Usuario o Contraseña no coinciden", Toast.LENGTH_LONG).show();
                     }
 
                 } else{
-                    Toast.makeText(getApplicationContext(), "Please type in User and Password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Por favor, introduzca el Usuario y la Contraseña", Toast.LENGTH_SHORT).show();
                 }
 
             }
