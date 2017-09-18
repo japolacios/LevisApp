@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Session Manager
         session = new SessionManagement(getApplicationContext());
-        Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_SHORT).show();
 
 
         iniciarSesion = (Button) findViewById(R.id.loginButton);
@@ -38,20 +38,33 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String name = nombre.getText().toString();
                 String password = contraseña.getText().toString();
-                session.createLoginSession(name, password);
-                //Aqui especifico a traves del objeto intent actual se activara la pantalla juego
+                //Validate that the Fields are not empty
+                if(name != null && !name.equals("") && password != null && !password.equals("")){
 
-                Intent intent = new Intent(MainActivity.this, Register.class);
-                HWDPrincipal principal=new HWDPrincipal();
-                intent.putExtra("PRINCIPAL", principal);
+                    session.createLoginSession(name, password);
 
-                //Se ordena que se inicie la otra actividad
-                startActivity(intent);
-                finish();
+                    //Validar de alguna forma para ahi si hacer el cambio de actividad, de lo contrario mostrar un toast con el error
+
+                    Intent intent = new Intent(MainActivity.this, Search.class);
+                    HWDPrincipal principal=new HWDPrincipal();
+                    intent.putExtra("PRINCIPAL", principal);
+
+                    //Se ordena que se inicie la otra actividad
+                    startActivity(intent);
+                    finish();
+                } else{
+                    Toast.makeText(getApplicationContext(), "Please type in User and Password", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
 
+    }
+        //Change to Register View
+    public void signIn(View view) {
+        Intent intent = new Intent(this, Register.class);
+        startActivity(intent);
     }
 
 }

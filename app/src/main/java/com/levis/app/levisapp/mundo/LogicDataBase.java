@@ -10,9 +10,6 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Laboratorioi2t on 15/08/2017.
- */
 
 public class LogicDataBase extends SQLiteOpenHelper {
 
@@ -50,39 +47,37 @@ public class LogicDataBase extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         if (db != null) {
             ContentValues valores = new ContentValues();
-            valores.put(DataBase.DatosColumnas.USUARIO_NOMBRE, user.getNombreUsuario();
-            valores.put(DataBase.DatosColumnas.USUARIO_APELLIDO, user.getApellidoUsuario();
-            valores.put(DataBase.DatosColumnas.USUARIO_IDENTIFICACION, user.getIdUsuario();
-            valores.put(DataBase.DatosColumnas.USUARIO_TIPO_IDENTIFICACION, user.getTipoID();
-            valores.put(DataBase.DatosColumnas.USUARIO_EMAIL, user.getCorreoElectronico();
-            valores.put(DataBase.DatosColumnas.USUARIO_USERNAME, user.getUsuarioAcceso();
-            valores.put(DataBase.DatosColumnas.USUARIO_CONTRASENA, user.getUsuPassword();
+            valores.put(DataBase.DatosColumnas.USUARIO_NOMBRE, user.getNombreUsuario());
+            valores.put(DataBase.DatosColumnas.USUARIO_IDENTIFICACION, user.getIdUsuario());
+            valores.put(DataBase.DatosColumnas.USUARIO_EMAIL, user.getCorreoElectronico());
+           // valores.put(DataBase.DatosColumnas.USUARIO_PIC, user.getImagenPerfil());
+            valores.put(DataBase.DatosColumnas.USUARIO_CONTRASENA, user.getUsuPassword());
             db.insert(DataBase.TABLA_USUARIOS, null, valores);
             db.close();
         }
     }
 
-    public void modificarJugador(Usuario user) {
+    public void cambiarClave(Usuario user) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues valores = new ContentValues();
-        valores.put(DataBase.DatosColumnas.USUARIO_NOMBRE, user.getNombreUsuario();
-        valores.put(DataBase.DatosColumnas.USUARIO_APELLIDO, user.getApellidoUsuario();
-        valores.put(DataBase.DatosColumnas.USUARIO_IDENTIFICACION, user.getIdUsuario();
-        valores.put(DataBase.DatosColumnas.USUARIO_TIPO_IDENTIFICACION, user.getTipoID();
-        valores.put(DataBase.DatosColumnas.USUARIO_EMAIL, user.getCorreoElectronico();
-        valores.put(DataBase.DatosColumnas.USUARIO_USERNAME, user.getUsuarioAcceso();
-        valores.put(DataBase.DatosColumnas.USUARIO_CONTRASENA, user.getUsuPassword();
+        valores.put(DataBase.DatosColumnas.USUARIO_NOMBRE, user.getNombreUsuario());
+        valores.put(DataBase.DatosColumnas.USUARIO_APELLIDO, user.getApellidoUsuario());
+        valores.put(DataBase.DatosColumnas.USUARIO_IDENTIFICACION, user.getIdUsuario());
+        valores.put(DataBase.DatosColumnas.USUARIO_TIPO_IDENTIFICACION, user.getTipoID());
+        valores.put(DataBase.DatosColumnas.USUARIO_EMAIL, user.getCorreoElectronico());
+        valores.put(DataBase.DatosColumnas.USUARIO_USERNAME, user.getUsuarioAcceso());
+        valores.put(DataBase.DatosColumnas.USUARIO_CONTRASENA, user.getUsuPassword());
         db.update(DataBase.TABLA_USUARIOS, valores, DataBase.DatosColumnas.USUARIO_USERNAME + "=" + user.getUsuarioAcceso(), null);
         db.close();
     }
 
-    public void borrarJugador(Usuario user) {
+    public void borrarUsuario(Usuario user) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(DataBase.TABLA_USUARIOS, DataBase.DatosColumnas.USUARIO_USERNAME + "=" + user.getUsuarioAcceso(), null);
         db.close();
     }
 
-    public Usuario buscarJugador(String identificacion) {
+    public Usuario buscarUsuario(String identificacion) {
         SQLiteDatabase db = getReadableDatabase();
         String[] valores_recuperar = {
                 DataBase.DatosColumnas.USUARIO_NOMBRE,
@@ -123,7 +118,7 @@ public class LogicDataBase extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<Usuario> listaJugadores() {
+    public List<Usuario> listaUsuarios() {
         SQLiteDatabase db = getReadableDatabase();
         List<Usuario> usuarios = new ArrayList<>();
         String[] valores_recuperar = {
