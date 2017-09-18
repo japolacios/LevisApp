@@ -158,7 +158,6 @@ public class LogicDataBase extends SQLiteOpenHelper {
             valores.put(DataBase.DatosColumnas.IMAGEN_FECHA, img.getFechaCarga());
             valores.put(DataBase.DatosColumnas.IMAGEN_TITULO, img.getTitulo());
             valores.put(DataBase.DatosColumnas.IMAGEN_IMAGEN_MEMORIA, img.getImagenCargada());
-            valores.put(DataBase.DatosColumnas.IMAGEN_IMAGEN_TABLA, img.getImagenTabla());
             db.insert(DataBase.TABLA_IMAGENES, null, valores);
             db.close();
         }
@@ -173,7 +172,6 @@ public class LogicDataBase extends SQLiteOpenHelper {
         valores.put(DataBase.DatosColumnas.IMAGEN_FECHA, img.getFechaCarga());
         valores.put(DataBase.DatosColumnas.IMAGEN_TITULO, img.getTitulo());
         valores.put(DataBase.DatosColumnas.IMAGEN_IMAGEN_MEMORIA, img.getImagenCargada());
-        valores.put(DataBase.DatosColumnas.IMAGEN_IMAGEN_TABLA, img.getImagenTabla());
         db.update(DataBase.TABLA_IMAGENES, valores, DataBase.DatosColumnas.IMAGEN_NOMBRE + "=" + img.getNombreUsuario(), null);
         db.close();
     }
@@ -193,8 +191,7 @@ public class LogicDataBase extends SQLiteOpenHelper {
                 DataBase.DatosColumnas.IMAGEN_UBICACION,
                 DataBase.DatosColumnas.IMAGEN_FECHA,
                 DataBase.DatosColumnas.IMAGEN_TITULO,
-                DataBase.DatosColumnas.IMAGEN_IMAGEN_MEMORIA,
-                DataBase.DatosColumnas.IMAGEN_IMAGEN_TABLA
+                DataBase.DatosColumnas.IMAGEN_IMAGEN_MEMORIA
         };
         Cursor c = db.query(DataBase.TABLA_IMAGENES, valores_recuperar, null, null, null, null, null, null);
         c.moveToFirst();
@@ -208,7 +205,6 @@ public class LogicDataBase extends SQLiteOpenHelper {
                 img.setFechaCarga(c.getString(4));
                 img.setTitulo(c.getString(5));
                 img.setImagenCargada(c.getString(6));
-                img.setImagenTabla(c.getBlob(7));
                 imagenes.add(img);
             } else return null;
         } while (c.moveToNext());
@@ -226,8 +222,7 @@ public class LogicDataBase extends SQLiteOpenHelper {
                 DataBase.DatosColumnas.IMAGEN_UBICACION,
                 DataBase.DatosColumnas.IMAGEN_FECHA,
                 DataBase.DatosColumnas.IMAGEN_TITULO,
-                DataBase.DatosColumnas.IMAGEN_IMAGEN_MEMORIA,
-                DataBase.DatosColumnas.IMAGEN_IMAGEN_TABLA
+                DataBase.DatosColumnas.IMAGEN_IMAGEN_MEMORIA
         };
 
         Cursor c = db.query(DataBase.TABLA_IMAGENES, null, " "+DataBase.DatosColumnas.USUARIO_EMAIL+"=?", valores_recuperar, null, null, null, null);
@@ -241,7 +236,6 @@ public class LogicDataBase extends SQLiteOpenHelper {
                 img.setFechaCarga(c.getString(4));
                 img.setTitulo(c.getString(5));
                 img.setImagenCargada(c.getString(6));
-                img.setImagenTabla(c.getBlob(7));
                 imagenes.add(img);
             }else return null;
         } while (c.moveToNext());
@@ -259,10 +253,9 @@ public class LogicDataBase extends SQLiteOpenHelper {
                 DataBase.DatosColumnas.IMAGEN_UBICACION,
                 DataBase.DatosColumnas.IMAGEN_FECHA,
                 DataBase.DatosColumnas.IMAGEN_TITULO,
-                DataBase.DatosColumnas.IMAGEN_IMAGEN_MEMORIA,
-                DataBase.DatosColumnas.IMAGEN_IMAGEN_TABLA
+                DataBase.DatosColumnas.IMAGEN_IMAGEN_MEMORIA
         };
-        Cursor c = db.query(DataBase.TABLA_USUARIOS, null, " "+DataBase.DatosColumnas.USUARIO_EMAIL+"=? AND "+DataBase.DatosColumnas.USUARIO_NOMBRE+"='imagenPerfil'", valores_recuperar, null, null, null);
+        Cursor c = db.query(DataBase.TABLA_IMAGENES, valores_recuperar, " "+DataBase.DatosColumnas.USUARIO_EMAIL+"=? AND "+DataBase.DatosColumnas.USUARIO_NOMBRE+"='imagenPerfil'", null, null, null, null);
         if(c.getCount()<1) // UserName Not Exist
         {
             c.close();
@@ -276,7 +269,6 @@ public class LogicDataBase extends SQLiteOpenHelper {
         img.setFechaCarga(c.getString(4));
         img.setTitulo(c.getString(5));
         img.setImagenCargada(c.getString(6));
-        img.setImagenTabla(c.getBlob(7));
         c.close();
         return img;
     }

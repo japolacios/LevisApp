@@ -43,7 +43,7 @@ public class SearchListViewAdapter extends ArrayAdapter<Imagen> {
         //get the image we are displaying
         Imagen imagenTemp = imageList.get(position);
 
-        //get the inflater and inflate the XML layout for each item
+        //get the inflater and inflate the XML laysout for each item
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
         //conditionally inflate either standard or special template

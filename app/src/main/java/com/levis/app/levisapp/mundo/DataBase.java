@@ -33,7 +33,6 @@ public class DataBase {
             + DatosColumnas.IMAGEN_FECHA + " TEXT,"
             + DatosColumnas.IMAGEN_TITULO + " TEXT,"
             + DatosColumnas.IMAGEN_IMAGEN_MEMORIA + " TEXT,"
-            + DatosColumnas.IMAGEN_IMAGEN_TABLA + " BLOB,"
             + "FOREIGN KEY ("+DatosColumnas.IMAGEN_EMAIL+") REFERENCES "+TABLA_USUARIOS+" ("+DatosColumnas.USUARIO_EMAIL+"))";
 
     /**
@@ -52,7 +51,7 @@ public class DataBase {
         public static final String IMAGEN_FECHA = "fecha";
         public static final String IMAGEN_TITULO = "titulo";
         public static final String IMAGEN_IMAGEN_MEMORIA = "imagen_memoria";
-        public static final String IMAGEN_IMAGEN_TABLA = "imagen_tabla";
+
 
 
     }

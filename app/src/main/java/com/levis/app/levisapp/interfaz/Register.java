@@ -1,13 +1,19 @@
 package com.levis.app.levisapp.interfaz;
 
-import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+import android.graphics.Bitmap;
 
 import com.levis.app.levisapp.R;
 import com.levis.app.levisapp.mundo.HWDPrincipal;
@@ -15,18 +21,23 @@ import com.levis.app.levisapp.mundo.Imagen;
 import com.levis.app.levisapp.mundo.LogicDataBase;
 import com.levis.app.levisapp.mundo.SessionManagement;
 import com.levis.app.levisapp.mundo.Usuario;
-import com.nguyenhoanglam.imagepicker.model.Config;
-import com.nguyenhoanglam.imagepicker.model.Image;
-import com.nguyenhoanglam.imagepicker.ui.imagepicker.ImagePicker;
+import com.vansuita.pickimage.bean.PickResult;
+import com.vansuita.pickimage.bundle.PickSetup;
+import com.vansuita.pickimage.dialog.PickImageDialog;
+import com.vansuita.pickimage.enums.EPickType;
+import com.vansuita.pickimage.listeners.IPickResult;
 
 import java.io.ByteArrayOutputStream;
-import java.nio.ByteBuffer;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 
-public class Register extends Activity {
+public class Register extends AppCompatActivity implements IPickResult {
 
     private EditText nombre,contraseña, correo;
     Button registrar;
@@ -34,8 +45,7 @@ public class Register extends Activity {
     // Session Manager Class
     SessionManagement session;
     private LogicDataBase db;
-    private ArrayList<Image> images = new ArrayList<>();
-
+    private String imagenPerfil = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +74,7 @@ public class Register extends Activity {
                 user.setCorreoElectronico(email);
                 user.setUsuPassword(pass);
 
-                if(images.size()>0){
+                if(!imagenPerfil.isEmpty()){
                     Imagen img = new Imagen();
                     img.setNombreUsuario(nombree);
                     DateFormat df = new SimpleDateFormat("EEE, MMM d, yyyy");
@@ -72,23 +82,28 @@ public class Register extends Activity {
                     img.setFechaCarga(date);
                     img.setTitulo("imagenPerfil");
                     img.setCorreoUsuario(email);
-                    Image img1 = images.get(0);
+                    img.setImagenCargada(imagenPerfil);
+                    img.setUbicacion("");
 
-                    Bitmap src= BitmapFactory.decodeFile(img1.getPath());
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    src.compress(Bitmap.CompressFormat.PNG, 100, baos);
-                    byte[] bytes = baos.toByteArray();
-                    img.setImagenTabla(bytes);
+                    Toast.makeText(getApplicationContext(), "Ruta perfil: "+imagenPerfil, Toast.LENGTH_SHORT).show();
+                    Log.d("Direccion", imagenPerfil);
 
+
+                    user.setImagenPerfil(img);
+
+                    db.insertarUsuario(user);
+                    db.insertarImagen(img);
+
+                }else{
+                    db.insertarUsuario(user);
                 }
 
-                db.insertarUsuario(user);
-
-                session.createLoginSession(nombree,pass);
+                session.createLoginSession(email,pass);
                 Intent intent=new Intent(Register.this,Search.class);
 
                 HWDPrincipal princi = new HWDPrincipal();
                 intent.putExtra("PRINCIPAL", princi);
+                intent.putExtra("USUARIO", user);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                 // Add new Flag to start new Activity
@@ -114,22 +129,46 @@ public class Register extends Activity {
     }
 
     private void start() {
-        ImagePicker.with(this)
-                .setFolderMode(true)
-                .setCameraOnly(false)
-                .setFolderTitle("Album")
-                .setMultipleMode(false)
-                .setSelectedImages(images)
-                .setMaxSize(10)
-                .start();
+        PickSetup setup = new PickSetup()
+                .setTitle("Seleccionar")
+                .setTitleColor(Color.parseColor("#212121"))
+                .setBackgroundColor(Color.WHITE)
+                .setProgressText("Cargando...")
+                .setProgressTextColor(Color.parseColor("#212121"))
+                .setCancelText("Cancelar")
+                .setCancelTextColor(Color.parseColor("#212121"))
+                .setButtonTextColor(Color.parseColor("#212121"))
+                .setDimAmount((float)0.3)
+                .setFlip(true)
+                .setMaxSize(500)
+                .setPickTypes(EPickType.GALLERY, EPickType.CAMERA)
+                .setCameraButtonText("Camara")
+                .setGalleryButtonText("Galeria")
+                .setIconGravity(Gravity.LEFT)
+                .setButtonOrientation(0)
+                .setSystemDialog(false);
+
+        PickImageDialog.build(setup).show(this);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Config.RC_PICK_IMAGES && resultCode == RESULT_OK && data != null) {
-            images = data.getParcelableArrayListExtra(Config.EXTRA_IMAGES);
+    public void onPickResult(final PickResult r) {
+        if (r.getError() == null) {
+            //If you want the Uri.
+            //Mandatory to refresh image from Uri.
+            //getImageView().setImageURI(null);
+
+            //Setting the real returned image.
+            //getImageView().setImageURI(r.getUri());
+
+            imagenPerfil = r.getPath();
+
+            //r.getPath();
+        } else {
+            //Handle possible errors
+            //TODO: do what you have to do with r.getError();
+            Toast.makeText(this, r.getError().getMessage(), Toast.LENGTH_LONG).show();
         }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 }
 

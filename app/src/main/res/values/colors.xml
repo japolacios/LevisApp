@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorLevis">#a93030</color>
     <color name="colorPhoto">#50000000</color>
+    <color name="imagepicker_grey">#bfbfbf</color>
 </resources>

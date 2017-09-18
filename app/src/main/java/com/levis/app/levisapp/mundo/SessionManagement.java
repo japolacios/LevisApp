@@ -93,6 +93,15 @@ public class SessionManagement {
     }
 
     /**
+     * Get stored session data
+     * */
+    public String[] getDetallesUsuario(){
+        String[] usuario = new String[]{pref.getString(KEY_NAME, null), pref.getString(KEY_PASSWORD, null)};
+        // return user
+        return usuario;
+    }
+
+    /**
      * Clear session details
      * */
     public void logoutUser(){

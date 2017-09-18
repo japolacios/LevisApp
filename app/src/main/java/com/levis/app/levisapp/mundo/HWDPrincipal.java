@@ -35,14 +35,6 @@ public class HWDPrincipal implements Serializable {
         this.imagenesUsuarios = imagenesUsuarios;
     }
 
-    public void iniciarSesionUsuario(String usuAcc, String pass){
-
-    }
-
-    public void cerrarSesionUsuario(){
-
-    }
-
     public void cargarFeedsUsuario(){
 
     }
