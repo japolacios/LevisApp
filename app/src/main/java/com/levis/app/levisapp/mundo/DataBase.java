@@ -28,12 +28,13 @@ public class DataBase {
     public static final String SQL_CREATE_TABLE_IMAGENES = "CREATE TABLE "
             + DataBase.TABLA_IMAGENES + " ("
             + DatosColumnas.IMAGEN_NOMBRE + " TEXT PRIMARY KEY,"
-            + DatosColumnas.IMAGEN_EMAIL + " TEXT, FOREIGN KEY ("+DatosColumnas.IMAGEN_EMAIL+") REFERENCES "+TABLA_USUARIOS+" ("+DatosColumnas.USUARIO_EMAIL+"))"
+            + DatosColumnas.IMAGEN_EMAIL + " TEXT, "
             + DatosColumnas.IMAGEN_UBICACION + " TEXT,"
             + DatosColumnas.IMAGEN_FECHA + " TEXT,"
             + DatosColumnas.IMAGEN_TITULO + " TEXT,"
             + DatosColumnas.IMAGEN_IMAGEN_MEMORIA + " TEXT,"
-            + DatosColumnas.IMAGEN_IMAGEN_TABLA + " BLOB)";
+            + DatosColumnas.IMAGEN_IMAGEN_TABLA + " BLOB,"
+            + "FOREIGN KEY ("+DatosColumnas.IMAGEN_EMAIL+") REFERENCES "+TABLA_USUARIOS+" ("+DatosColumnas.USUARIO_EMAIL+"))";
 
     /**
      * This class represents the rows for an entry in the row_counter table. The

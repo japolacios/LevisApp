@@ -13,15 +13,18 @@ import android.widget.EditText;
 
 import com.levis.app.levisapp.R;
 import com.levis.app.levisapp.mundo.HWDPrincipal;
+import com.levis.app.levisapp.mundo.LogicDataBase;
 import com.levis.app.levisapp.mundo.SessionManagement;
+import com.levis.app.levisapp.mundo.Usuario;
 
 public class Register extends Activity {
 
-    private EditText nombre,contraseña;
+    private EditText nombre,contraseña, correo;
     Button registrar;
     Button imagenBoton;
     // Session Manager Class
     SessionManagement session;
+    private LogicDataBase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +34,11 @@ public class Register extends Activity {
         // Session Manager
         session = new SessionManagement(getApplicationContext());
 
+        db = new LogicDataBase(this);
+
         registrar=(Button)findViewById(R.id.registerButton);
         nombre=(EditText)findViewById(R.id.name);
+        correo=(EditText)findViewById(R.id.mail);
         contraseña=(EditText)findViewById(R.id.password);
         imagenBoton=(Button)findViewById(R.id.botonimagen) ;
 
@@ -40,11 +46,16 @@ public class Register extends Activity {
             @Override
             public void onClick(View view) {
                 String nombree = nombre.getText().toString();
+                String email = correo.getText().toString();
                 String pass=contraseña.getText().toString();
 
-                //Agregar BD
+                Usuario user = new Usuario();
+                user.setNombreUsuario(nombree);
+                user.setCorreoElectronico(email);
+                user.setUsuPassword(pass);
 
-                //Iniciar sesion
+                db.insertarUsuario(user);
+
                 session.createLoginSession(nombree,pass);
                 Intent intent=new Intent(Register.this,Search.class);
 

@@ -143,7 +143,7 @@ public class LogicDataBase extends SQLiteOpenHelper {
             return "NOT EXIST";
         }
         cursor.moveToFirst();
-        String password= cursor.getString(cursor.getColumnIndex("PASSWORD"));
+        String password= cursor.getString(cursor.getColumnIndex(DataBase.DatosColumnas.USUARIO_CONTRASENA));
         cursor.close();
         return password;
     }
