@@ -147,7 +147,7 @@
         app:layout_constraintTop_toBottomOf="@+id/newPassword" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/botonChangePassword"
         style="@style/Levis.buttonRed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -163,7 +163,7 @@
         app:layout_constraintHorizontal_bias="0.502" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/botonLogout"
         style="@style/Levis.buttonLight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
