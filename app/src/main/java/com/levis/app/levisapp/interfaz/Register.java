@@ -70,7 +70,6 @@ public class Register extends Activity {
                     img.setTitulo("imagenPerfil");
                     img.setCorreoUsuario(email);
                     Image img1 = images.get(0);
-                    ByteBuffer buffer = img1.getPlanes()[0].getBuffer();
                     byte[] bytes = new byte[buffer.capacity()];
                     img.setImagenTabla();
                 }
