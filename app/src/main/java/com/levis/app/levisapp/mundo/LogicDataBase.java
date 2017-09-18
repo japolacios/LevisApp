@@ -10,6 +10,9 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by Laboratorioi2t on 15/08/2017.
+ */
 
 public class LogicDataBase extends SQLiteOpenHelper {
 
@@ -118,7 +121,7 @@ public class LogicDataBase extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<Usuario> listaUsuarios() {
+    public List<Usuario> listaJugadores() {
         SQLiteDatabase db = getReadableDatabase();
         List<Usuario> usuarios = new ArrayList<>();
         String[] valores_recuperar = {
