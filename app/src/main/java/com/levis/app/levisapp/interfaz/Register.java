@@ -2,6 +2,8 @@ package com.levis.app.levisapp.interfaz;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +19,7 @@ import com.nguyenhoanglam.imagepicker.model.Config;
 import com.nguyenhoanglam.imagepicker.model.Image;
 import com.nguyenhoanglam.imagepicker.ui.imagepicker.ImagePicker;
 
+import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -70,8 +73,13 @@ public class Register extends Activity {
                     img.setTitulo("imagenPerfil");
                     img.setCorreoUsuario(email);
                     Image img1 = images.get(0);
-                    byte[] bytes = new byte[buffer.capacity()];
-                    img.setImagenTabla();
+
+                    Bitmap src= BitmapFactory.decodeFile(img1.getPath());
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    src.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                    byte[] bytes = baos.toByteArray();
+                    img.setImagenTabla(bytes);
+
                 }
 
                 db.insertarUsuario(user);
