@@ -50,13 +50,13 @@ public class LogicDataBase extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         if (db != null) {
             ContentValues valores = new ContentValues();
-            valores.put(DataBase.DatosColumnas.USUARIO_NOMBRE, user.getNombreUsuario();
-            valores.put(DataBase.DatosColumnas.USUARIO_APELLIDO, user.getApellidoUsuario();
-            valores.put(DataBase.DatosColumnas.USUARIO_IDENTIFICACION, user.getIdUsuario();
-            valores.put(DataBase.DatosColumnas.USUARIO_TIPO_IDENTIFICACION, user.getTipoID();
-            valores.put(DataBase.DatosColumnas.USUARIO_EMAIL, user.getCorreoElectronico();
-            valores.put(DataBase.DatosColumnas.USUARIO_USERNAME, user.getUsuarioAcceso();
-            valores.put(DataBase.DatosColumnas.USUARIO_CONTRASENA, user.getUsuPassword();
+            valores.put(DataBase.DatosColumnas.USUARIO_NOMBRE, user.getNombreUsuario());
+            valores.put(DataBase.DatosColumnas.USUARIO_APELLIDO, user.getApellidoUsuario());
+            valores.put(DataBase.DatosColumnas.USUARIO_IDENTIFICACION, user.getIdUsuario());
+            valores.put(DataBase.DatosColumnas.USUARIO_TIPO_IDENTIFICACION, user.getTipoID());
+            valores.put(DataBase.DatosColumnas.USUARIO_EMAIL, user.getCorreoElectronico());
+            valores.put(DataBase.DatosColumnas.USUARIO_USERNAME, user.getUsuarioAcceso());
+            valores.put(DataBase.DatosColumnas.USUARIO_CONTRASENA, user.getUsuPassword());
             db.insert(DataBase.TABLA_USUARIOS, null, valores);
             db.close();
         }
@@ -65,13 +65,13 @@ public class LogicDataBase extends SQLiteOpenHelper {
     public void modificarJugador(Usuario user) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues valores = new ContentValues();
-        valores.put(DataBase.DatosColumnas.USUARIO_NOMBRE, user.getNombreUsuario();
-        valores.put(DataBase.DatosColumnas.USUARIO_APELLIDO, user.getApellidoUsuario();
-        valores.put(DataBase.DatosColumnas.USUARIO_IDENTIFICACION, user.getIdUsuario();
-        valores.put(DataBase.DatosColumnas.USUARIO_TIPO_IDENTIFICACION, user.getTipoID();
-        valores.put(DataBase.DatosColumnas.USUARIO_EMAIL, user.getCorreoElectronico();
-        valores.put(DataBase.DatosColumnas.USUARIO_USERNAME, user.getUsuarioAcceso();
-        valores.put(DataBase.DatosColumnas.USUARIO_CONTRASENA, user.getUsuPassword();
+        valores.put(DataBase.DatosColumnas.USUARIO_NOMBRE, user.getNombreUsuario());
+        valores.put(DataBase.DatosColumnas.USUARIO_APELLIDO, user.getApellidoUsuario());
+        valores.put(DataBase.DatosColumnas.USUARIO_IDENTIFICACION, user.getIdUsuario());
+        valores.put(DataBase.DatosColumnas.USUARIO_TIPO_IDENTIFICACION, user.getTipoID());
+        valores.put(DataBase.DatosColumnas.USUARIO_EMAIL, user.getCorreoElectronico());
+        valores.put(DataBase.DatosColumnas.USUARIO_USERNAME, user.getUsuarioAcceso());
+        valores.put(DataBase.DatosColumnas.USUARIO_CONTRASENA, user.getUsuPassword());
         db.update(DataBase.TABLA_USUARIOS, valores, DataBase.DatosColumnas.USUARIO_USERNAME + "=" + user.getUsuarioAcceso(), null);
         db.close();
     }
