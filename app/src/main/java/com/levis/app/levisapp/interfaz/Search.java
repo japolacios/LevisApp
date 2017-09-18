@@ -97,4 +97,15 @@ public class Search extends AppCompatActivity {
         }
     }
 
+    //Change to Profile View
+    public void goToProfile(View view) {
+        Intent intent = new Intent(this, Profile.class);
+        startActivity(intent);
+    }
+
+    //Change to Settings View
+    public void goToSettings(View view) {
+        Intent intent = new Intent(this, Settings.class);
+        startActivity(intent);
+    }
 }

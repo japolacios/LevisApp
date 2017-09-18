@@ -22,4 +22,10 @@
 
     <string name="search_tittle">This is How We Dance!</string>
 
+
+    <!-- PROFILE -->
+
+    <string name="profile_publications">PUBLICATIONS</string>
+    <string name="profile_edit">Edit Profile</string>
+
 </resources>

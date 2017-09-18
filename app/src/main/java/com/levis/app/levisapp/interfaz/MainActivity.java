@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
                     if(password.equals(storedPassword))
                     {
-                        Toast.makeText(getApplicationContext(), "Bienvenido de nuevo!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Bienvenido de nuevo!", Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(MainActivity.this, Search.class);
                         HWDPrincipal principal=new HWDPrincipal();
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else
                     {
-                        Toast.makeText(getApplicationContext(), "El Usuario o Contraseña no coinciden", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "El Usuario o Contraseña no coinciden", Toast.LENGTH_SHORT).show();
                     }
 
                 } else{
