@@ -66,9 +66,9 @@ public class Settings extends AppCompatActivity {
             }});
         logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                cerrarSesion();
                 Intent jugar = new Intent(Settings.this, MainActivity.class);
                 startActivity(jugar);
-                cerrarSesion();
 
             }
 
@@ -90,6 +90,13 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         escucharComponentes();
         iniciarComponentes();
+        princi=new HWDPrincipal();
+        user=new Usuario();
+        db = new LogicDataBase(this);
+        session=new SessionManagement(getApplicationContext());
+        session.checkLogin();
+        String[] sp1 = session.getDetallesUsuario();
+        user = db.buscarUsuario(sp1[0]);
     }
 
     //Change to Profile View

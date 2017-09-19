@@ -102,7 +102,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/publicationsNumber" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/buttonEditProfile"
                 style="@style/Levis.buttonRed"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
@@ -118,6 +118,7 @@
     </android.support.v7.widget.Toolbar>
 
     <GridView
+        android:id="@+id/gridViewProfile"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="0dp"
