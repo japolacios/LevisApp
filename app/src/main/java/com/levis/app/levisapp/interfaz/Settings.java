@@ -10,6 +10,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.levis.app.levisapp.R;
+import com.levis.app.levisapp.mundo.HWDPrincipal;
+import com.levis.app.levisapp.mundo.LogicDataBase;
+import com.levis.app.levisapp.mundo.SessionManagement;
+import com.levis.app.levisapp.mundo.Usuario;
 
 public class Settings extends AppCompatActivity {
 
@@ -17,10 +21,21 @@ public class Settings extends AppCompatActivity {
     private Button logout;
     private EditText pass;
     private EditText confirmPass;
+    private SessionManagement session;
+    private HWDPrincipal princi;
+    private Usuario user;
+    private LogicDataBase db;
 
     public Settings() {
         iniciarComponentes();
         escucharComponentes();
+        princi=new HWDPrincipal();
+        user=new Usuario();
+        db = new LogicDataBase(this);
+        session=new SessionManagement(getApplicationContext());
+        session.checkLogin();
+        String[] sp1 = session.getDetallesUsuario();
+        user = db.buscarUsuario(sp1[0]);
     }
 
     public void iniciarComponentes(){
@@ -62,16 +77,19 @@ public class Settings extends AppCompatActivity {
     }
 
     private void cambiarContraseña(String a) {
-
+        user.setUsuPassword(a);
+        db.cambiarClave(user);
     }
-    private void cerrarSesion() {
-        
+    private void cerrarSesion(){
+        session.logoutUser();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        escucharComponentes();
+        iniciarComponentes();
     }
 
     //Change to Profile View
