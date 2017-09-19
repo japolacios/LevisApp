@@ -48,12 +48,24 @@ public class Settings extends AppCompatActivity {
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
                 }
-
-
             }});
+        logout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent jugar = new Intent(Settings.this, MainActivity.class);
+                startActivity(jugar);
+                cerrarSesion();
+
+            }
+
+
+        });
     }
 
     private void cambiarContraseña(String a) {
+
+    }
+    private void cerrarSesion() {
+        
     }
 
     @Override
