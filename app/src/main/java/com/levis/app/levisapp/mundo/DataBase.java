@@ -27,12 +27,12 @@ public class DataBase {
      */
     public static final String SQL_CREATE_TABLE_IMAGENES = "CREATE TABLE "
             + DataBase.TABLA_IMAGENES + " ("
-            + DatosColumnas.IMAGEN_NOMBRE + " TEXT PRIMARY KEY,"
+            + DatosColumnas.IMAGEN_NOMBRE + " TEXT,"
             + DatosColumnas.IMAGEN_EMAIL + " TEXT, "
             + DatosColumnas.IMAGEN_UBICACION + " TEXT,"
             + DatosColumnas.IMAGEN_FECHA + " TEXT,"
             + DatosColumnas.IMAGEN_TITULO + " TEXT,"
-            + DatosColumnas.IMAGEN_IMAGEN_MEMORIA + " TEXT,"
+            + DatosColumnas.IMAGEN_IMAGEN_MEMORIA + " TEXT PRIMARY KEY,"
             + "FOREIGN KEY ("+DatosColumnas.IMAGEN_EMAIL+") REFERENCES "+TABLA_USUARIOS+" ("+DatosColumnas.USUARIO_EMAIL+"))";
 
     /**

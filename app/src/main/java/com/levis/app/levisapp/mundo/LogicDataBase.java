@@ -199,12 +199,12 @@ public class LogicDataBase extends SQLiteOpenHelper {
             if (c.getCount() > 0) {
                 Imagen img = new Imagen();
 
-                img.setNombreUsuario(c.getString(1));
-                img.setCorreoUsuario(c.getString(2));
-                img.setUbicacion(c.getString(3));
-                img.setFechaCarga(c.getString(4));
-                img.setTitulo(c.getString(5));
-                img.setImagenCargada(c.getString(6));
+                img.setNombreUsuario(c.getString(0));
+                img.setCorreoUsuario(c.getString(1));
+                img.setUbicacion(c.getString(2));
+                img.setFechaCarga(c.getString(3));
+                img.setTitulo(c.getString(4));
+                img.setImagenCargada(c.getString(5));
                 imagenes.add(img);
             } else return null;
         } while (c.moveToNext());
@@ -255,7 +255,7 @@ public class LogicDataBase extends SQLiteOpenHelper {
                 DataBase.DatosColumnas.IMAGEN_TITULO,
                 DataBase.DatosColumnas.IMAGEN_IMAGEN_MEMORIA
         };
-        Cursor c = db.query(DataBase.TABLA_IMAGENES, valores_recuperar, " "+DataBase.DatosColumnas.USUARIO_EMAIL+"=? AND "+DataBase.DatosColumnas.USUARIO_NOMBRE+"='imagenPerfil'", null, null, null, null);
+        Cursor c = db.query(DataBase.TABLA_IMAGENES, valores_recuperar, " "+DataBase.DatosColumnas.USUARIO_EMAIL+"=? AND "+DataBase.DatosColumnas.IMAGEN_NOMBRE+"='imagenPerfil'", null, null, null, null);
         if(c.getCount()<1) // UserName Not Exist
         {
             c.close();

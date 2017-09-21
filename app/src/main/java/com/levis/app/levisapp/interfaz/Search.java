@@ -56,8 +56,8 @@ public class Search extends AppCompatActivity {
 
         String[] sp1 = session.getDetallesUsuario();
         princi = new HWDPrincipal();
-        user = db.buscarUsuario(sp1[0]);
-        Toast.makeText(getApplicationContext(), sp1[0], Toast.LENGTH_SHORT).show();
+        //user = db.buscarUsuario(sp1[0]);
+        //Toast.makeText(getApplicationContext(), sp1[0], Toast.LENGTH_SHORT).show();
 
         try{
             String[] sp = session.getDetallesUsuario();
@@ -67,34 +67,22 @@ public class Search extends AppCompatActivity {
             Imagen perf = db.getImagenPerfil(user.getCorreoElectronico());
             user.setImagenPerfil(perf);
         }catch(Exception e){
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             Log.d("Error", e.getMessage());
             princi = new HWDPrincipal();
             user = new Usuario();
+            // // TODO: 19/09/17  devolver a login
         }
 
-        imageList = new ArrayList<Imagen>();
+        imageList = (ArrayList<Imagen>) db.todasLasImagenes();
+        if(imageList != null && imageList.size()>0) {
 
-        //Add items in the meantime
-        Imagen temp1 = new Imagen("John Doe","Valle","01/01/99","Mi Titulo","@DrawableRes/explire_dummie.png");
-        Imagen temp2 = new Imagen("Benito Camelas","Hell","01/01/99","Mi Titulo2","@DrawableRes/explire_dummie.png");
-        Imagen temp3;
-        if(!user.getNombreUsuario().isEmpty()){
-            temp3 = user.getImagenPerfil();
-            Log.d("InfoImagen", temp3.getImagenCargada());
-        }else{
-            temp3 = new Imagen("Benito Camelas","Hell","01/01/99","Mi Titulo2","@DrawableRes/explire_dummie.png");
+            ArrayAdapter<Imagen> adapter = new SearchListViewAdapter(this, 0, imageList);
+            //Find list view and bind it with the custom adapter
+            listView = (ListView) findViewById(R.id.main_list);
+            listView.setAdapter(adapter);
         }
-
-            imageList.add(temp1);
-            imageList.add(temp2);
-
-
-
-        ArrayAdapter<Imagen> adapter = new SearchListViewAdapter(this, 0, imageList);
-        //Find list view and bind it with the custom adapter
-        listView = (ListView) findViewById(R.id.main_list);
-        listView.setAdapter(adapter);
+        // // TODO: 19/09/17 mostrar mensaje a usuario cuando no hayan publicaciones 
 
     }
 
@@ -102,6 +90,7 @@ public class Search extends AppCompatActivity {
     public void openCamera(View view) {
         Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(i , 0);
+        //// TODO: 19/09/17  
     }
     //What to do after the picture is taken
     @Override
