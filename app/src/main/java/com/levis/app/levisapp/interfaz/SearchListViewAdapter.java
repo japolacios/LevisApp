@@ -16,9 +16,13 @@ import android.widget.TextView;
 import com.levis.app.levisapp.R;
 import com.levis.app.levisapp.mundo.Imagen;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.System.out;
 
 /**
  * Created by Japo on 17/09/17.
@@ -66,10 +70,12 @@ public class SearchListViewAdapter extends ArrayAdapter<Imagen> {
 
             //Set the image to a bitmap
             Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-
-            //Assing the bitmap to the imageView
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            myBitmap.compress(Bitmap.CompressFormat.JPEG, 1, out);
+            Bitmap decoded = BitmapFactory.decodeStream(new ByteArrayInputStream(out.toByteArray()));
+            //Asing the bitmap to the imageView
             //imgLoad.setImageResource(myBitmap);
-            imgLoad.setImageBitmap(myBitmap);
+            imgLoad.setImageBitmap(decoded);
         }
 
         //Set the rest of the texts
