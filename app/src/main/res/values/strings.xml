@@ -1,5 +1,8 @@
 <resources>
 
+    <string name="facebook_app_id">291520461335136</string>
+    <string name="fb_login_protocol_scheme">fb291520461335136</string>
+
     <!-- LOGIN -->
     <string name="app_name">LevisApp</string>
     <string name="login_userName">User Name</string>

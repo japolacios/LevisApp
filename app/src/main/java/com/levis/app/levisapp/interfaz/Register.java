@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -15,6 +16,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.graphics.Bitmap;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.levis.app.levisapp.R;
 import com.levis.app.levisapp.mundo.HWDPrincipal;
 import com.levis.app.levisapp.mundo.Imagen;
@@ -39,6 +47,8 @@ import java.util.Calendar;
 
 public class Register extends AppCompatActivity implements IPickResult {
 
+    private static final String TAG = "EmailPassword";
+
     private EditText nombre,contraseña, correo;
     Button registrar;
     Button imagenBoton;
@@ -46,10 +56,32 @@ public class Register extends AppCompatActivity implements IPickResult {
     SessionManagement session;
     private LogicDataBase db;
     private String imagenPerfil = "";
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseDatabase fbDatab;
+    private DatabaseReference myRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        mAuth = FirebaseAuth.getInstance();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
 
         // Session Manager
         session = new SessionManagement(getApplicationContext());
@@ -74,29 +106,9 @@ public class Register extends AppCompatActivity implements IPickResult {
                 user.setCorreoElectronico(email);
                 user.setUsuPassword(pass);
 
-                if(!imagenPerfil.isEmpty()){
-                    Imagen img = new Imagen();
-                    img.setNombreUsuario(nombree);
-                    DateFormat df = new SimpleDateFormat("EEE, MMM d, yyyy");
-                    String date = df.format(Calendar.getInstance().getTime());
-                    img.setFechaCarga(date);
-                    img.setTitulo("imagenPerfil");
-                    img.setCorreoUsuario(email);
-                    img.setImagenCargada(imagenPerfil);
-                    img.setUbicacion("");
-
-                    Toast.makeText(getApplicationContext(), "Ruta perfil: "+imagenPerfil, Toast.LENGTH_SHORT).show();
-                    Log.d("Direccion", imagenPerfil);
-
-
-                    user.setImagenPerfil(img);
+                mAuth.createUserWithEmailAndPassword(email, pass);
 
                     db.insertarUsuario(user);
-                    db.insertarImagen(img);
-
-                }else{
-                    db.insertarUsuario(user);
-                }
 
                 session.createLoginSession(email,pass);
                 Intent intent=new Intent(Register.this,Search.class);

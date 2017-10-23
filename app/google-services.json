@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "513446367715",
+    "firebase_url": "https://levis-95a11.firebaseio.com",
+    "project_id": "levis-95a11",
+    "storage_bucket": "levis-95a11.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:513446367715:android:19c3f3d6c244490d",
+        "android_client_info": {
+          "package_name": "com.levis.app.levisapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "513446367715-44m20lll27gc6t2bt6a15fbj31r9hcfi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8gvKVB__nFA7rZO4Ds2j-YX1qQepY_zg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
